@@ -229,13 +229,14 @@ class Edit extends Component {
                                         keyList:refKeyArraypurOrg,//选中的key
                                         onSave: function (sels) {
                                             console.log(sels);
+                                            
                                             var temp = sels.map(v => v.id)
                                             console.log("temp",temp);
                                             self.setState({
                                                 refKeyArraypurOrg: temp,
                                             })
                                         },
-                                        showKey:'name',
+                                        showKey:'refname',
                                         verification:true,//是否进行校验
                                         verKey:'purOrg',//校验字段
                                         verVal:purOrg
@@ -306,6 +307,7 @@ class Edit extends Component {
                                         refType: 6,//1:树形 2.单表 3.树卡型 4.多选 5.default
                                         className: '',
                                         param: {//url请求参数
+                                            pk_val:'abc',
                                             refCode: 'bd_common_currency',
                                             tenantId: '',
                                             sysId: '',
