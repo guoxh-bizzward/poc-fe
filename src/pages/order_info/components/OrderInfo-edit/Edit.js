@@ -20,6 +20,7 @@ const FormItem = Form.FormItem;
 const Option = Select.Option;
 const format = "YYYY-MM-DD HH:mm:ss";
 
+
 class Edit extends Component {
     constructor(props) {
         super(props);
@@ -27,11 +28,19 @@ class Edit extends Component {
             rowData: {},
                 refKeyArraypurOrg:[],
                 refKeyArrayapplyNo:[],
+                selectDataSource:[],
             fileNameData: props.rowData.attachment || [],//上传附件数据
         }
     }
     async componentWillMount() {
         await actions.OrderInfo.getOrderTypes();
+        let {data} = await actions.OrderInfo.getSelectData({
+            param:'1'
+        });
+        console.log(data);
+        this.setState({
+            selectDataSource:data
+        })
         let searchObj = queryString.parse(this.props.location.search);
         let { btnFlag } = searchObj;
         if (btnFlag && btnFlag > 0) {
@@ -63,6 +72,7 @@ class Edit extends Component {
                 let {rowData,
                     refKeyArraypurOrg,
                     refKeyArrayapplyNo,
+                    selectDataSource
                 } = this.state;
 
                 values.purOrg = refKeyArraypurOrg.join();
@@ -122,7 +132,6 @@ class Edit extends Component {
             })
         }
     }
-
     // 通过search_id查询数据
 
     render() {
@@ -133,6 +142,7 @@ class Edit extends Component {
         let {rowData,
                     refKeyArraypurOrg,
                     refKeyArrayapplyNo,
+                    selectDataSource
         } = this.state;
         // 将boolean类型数据转化为string
         Object.keys(rowData).forEach(function(item){
@@ -146,6 +156,8 @@ class Edit extends Component {
         let { orderType,orderNo,purOrg,releaseTime,orderAmount,applyNo,purGroupNo,purOrgSrc,confirmTime,applyName,orderState, } = rowData;
         const { getFieldProps, getFieldError } = this.props.form;
 
+        
+          
         return (
             <div className='OrderInfo-detail'>
                 <Loading
@@ -158,6 +170,7 @@ class Edit extends Component {
                         <div className='head-btn'>
                             <Button className='head-cancel' onClick={this.onBack}>取消</Button>
                             <Button className='head-save' onClick={this.save}>保存</Button>
+                            <Button className='head-save' onClick={this.save}>保存11</Button>
                         </div>
                     ) : ''}
                 </Header>
@@ -167,7 +180,22 @@ class Edit extends Component {
                                 <Label>
                                     订单类型：
                                 </Label>
-                                    <Select disabled={btnFlag == 2}
+                                <Select
+                                    disabled={btnFlag == 2}
+                                    {
+                                    ...getFieldProps('orderType', {
+                                        initialValue: typeof orderType === 'undefined' ? "" : orderType ,
+                                        rules: [{
+                                            required: false, message: '请选择订单类型',
+                                        }],
+                                    }
+                                    )}
+                                    //style={{ width: 200 }}
+                                    placeholder="Select a person"
+                                    //onChange={this.handleChange}
+                                    data={this.state.selectDataSource}
+                                    />
+                                    {/* <Select disabled={btnFlag == 2}
                                         {
                                         ...getFieldProps('orderType', {
                                             initialValue: typeof orderType === 'undefined' ? "" : orderType ,
@@ -176,12 +204,12 @@ class Edit extends Component {
                                             }],
                                         }
                                         )}>
-                                        <Option value="">请选择</Option>
+                                         <Option value="">请选择</Option>
                                             <Option value={ '0' }>生产订单</Option>
                                             <Option value={ '1' }>日常订单</Option>
                                             <Option value={ '2' }>临时订单</Option>
                                             <Option value={ '3' }>测试订单</Option>
-                                    </Select>
+                                    </Select> */}
 
 
                                 <span className='error'>
@@ -307,7 +335,7 @@ class Edit extends Component {
                                         refType: 6,//1:树形 2.单表 3.树卡型 4.多选 5.default
                                         className: '',
                                         param: {//url请求参数
-                                            pk_val:'abc',
+                                            pk_val:refKeyArraypurOrg,
                                             refCode: 'bd_common_currency',
                                             tenantId: '',
                                             sysId: '',

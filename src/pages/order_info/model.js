@@ -152,6 +152,11 @@ export default {
             return content[0];
         },
 
+
+        async getSelectData(param,getState){
+            let result = api.getSelect(param);
+            return result;
+        }
         
 
 
