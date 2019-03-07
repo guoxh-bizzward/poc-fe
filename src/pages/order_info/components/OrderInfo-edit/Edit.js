@@ -264,8 +264,9 @@ class Edit extends Component {
                                                 refKeyArraypurOrg: temp,
                                             })
                                         },
-                                        showKey:'refname',
-                                        verification:true,//是否进行校验
+                                        showKey:'name',
+                                        showVal:purOrgSrc,
+                                        verification:false,//是否进行校验
                                         verKey:'purOrg',//校验字段
                                         verVal:purOrg
                                     })} form={this.props.form}/> 

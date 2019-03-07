@@ -25,6 +25,18 @@ export default class OrderInfoPaginationTable extends Component {
                      width:200,
                 },
                 {
+                    title: "采购单位",
+                    dataIndex: "purOrgSrc",
+                    key: "purOrgSrc",
+                     width:200,
+                },
+                {
+                    title: "供应商编号",
+                    dataIndex: "applyName",
+                    key: "applyName",
+                     width:200,
+                },
+                {
                     title: "编号",
                     dataIndex: "orderNo",
                     key: "orderNo",
