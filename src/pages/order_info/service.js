@@ -6,10 +6,19 @@ const URL = {
     "GET_LIST":  `${GROBAL_HTTP_CTX}/order_info/list`,
     "DEL_ORDER":  `${GROBAL_HTTP_CTX}/order_info/deleteBatch`,
     "GET_SELECT": `${GROBAL_HTTP_CTX}/order_info/selectData`,
+    "GET_AUTH":`/wbalone/security/auth`,
 
 
 }
 
+export const getAuth = (funcCode) =>{
+    return request(URL.GET_AUTH,{
+        method:"get",
+        param:{
+            funcCode
+        }
+    });
+}
 /**
  * 获取列表
  * @param {*} params

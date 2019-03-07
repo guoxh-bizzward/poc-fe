@@ -127,3 +127,47 @@ export const getCookie = (name) => {
     }
     return cookieValue;
 }
+export function getButtonStatus(action, status) {
+    let enabledObj = {};
+    switch (status) {
+        case 'view':
+            enabledObj = {
+                add: false,
+                edit: false,
+                del: false,
+                down: false,
+                import: false,
+                export: false,
+                save: true,
+                cancel: true
+            }
+
+            return enabledObj[action];
+        case 'new':
+            enabledObj = {
+                add: false,
+                edit: true,
+                del: true,
+                down: true,
+                import: true,
+                export: true,
+                save: false,
+                cancel: false
+            }
+            return enabledObj[action];
+        case 'edit':
+            enabledObj = {
+                add: true,
+                edit: true,
+                del: true,
+                down: true,
+                import: true,
+                export: true,
+                save: false,
+                cancel: false
+            }
+            return enabledObj[action];
+        default:
+            break;
+    }
+}

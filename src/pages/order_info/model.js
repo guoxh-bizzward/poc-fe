@@ -33,6 +33,11 @@ export default {
         searchParam:{},
         validateNum:99,//不存在的step
 
+        saveAuth:false,
+        deleteAuth:false,
+        updateAuth:false,
+        templateDownloadAuth:false,
+
     },
     reducers: {
         /**
@@ -156,8 +161,16 @@ export default {
         async getSelectData(param,getState){
             let result = api.getSelect(param);
             return result;
-        }
+        },
         
+        async queryAuth(funcCode,getState){
+            let {data} = await api.getAuth(funcCode);
+            for(let i=0;i<data.length;i++){
+                actions.OrderInfo.updateState({
+                    [`${data[i]}Auth`]:true
+                });
+            }
+        },
 
 
     }

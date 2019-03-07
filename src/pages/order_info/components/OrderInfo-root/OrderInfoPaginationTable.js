@@ -6,7 +6,10 @@ import Select from 'bee-select';
 import moment from "moment/moment";
 import Header from 'components/Header';
 import OrderInfoForm from '../OrderInfo-form';
+
+
 import './index.less'
+import { getButtonStatus } from '../../../../utils';
 export default class OrderInfoPaginationTable extends Component {
     constructor(props){
         super(props);
@@ -94,6 +97,7 @@ export default class OrderInfoPaginationTable extends Component {
     
     componentDidMount(){
         // this.setState({ step: this.props.pageSize })
+        actions.OrderInfo.queryAuth("test");
         actions.OrderInfo.loadList();//table数据
     }
 
@@ -248,7 +252,7 @@ export default class OrderInfoPaginationTable extends Component {
 
     render(){
         const self=this;
-        let { list, showLoading, pageIndex, pageSize, totalPages , total } = this.props;
+        let { addAuth,deleteAuth,updateAuth,templateDownloadAuth,list, showLoading, pageIndex, pageSize, totalPages , total } = this.props;
         let {selectData,showModal} = this.state;
         let exportProps = { total, pageIndex, pageSize, selectData, list};
         // 将boolean类型数据转化为string
@@ -266,9 +270,13 @@ export default class OrderInfoPaginationTable extends Component {
                 <Header title='单表orderinfo'/>
                 <OrderInfoForm { ...this.props }/>
                 <div className='table-header mt25'>
-                    <Button colors="primary" style={{"marginLeft":15}} size='sm' onClick={() => { self.cellClick({},0) }}>
-                    新增
-                    </Button>
+                    
+                        {addAuth &&
+                        <Button disabled={getButtonStatus('add',status)} 
+                            colors="primary" style={{"marginLeft":15}} size='sm' onClick={() => { self.cellClick({},0) }}>
+                            新增
+                        </Button>
+                        }
                    
 
 
