@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "ac-upload": "0.1.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bee-autocomplete": "^1.0.4",
     "bee-checkbox": "1.1.1",
     "bee-city-select": "^1.0.6",
